@@ -21,11 +21,11 @@ class A66ipSpider(scrapy.Spider):
             yield ip_proxy
 
         next_url = response.xpath('//a[text()="»"]/@href').extract_first()
-        next_url = response.urljoin(next_url)
-
-        time.sleep(2)
-        print(next_url)
         if next_url:
+            next_url = response.urljoin(next_url)
+            time.sleep(2)
+            print('new_page {}'.format(next_url))
+
             yield scrapy.Request(
                 url=next_url,
                 callback=self.parse
